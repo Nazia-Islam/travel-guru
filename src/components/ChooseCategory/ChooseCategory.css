@@ -1,0 +1,78 @@
+.main-content{
+    color: white;
+    padding-top: 200px;
+    padding-bottom: 20px;
+    
+}
+
+.booking-btn{
+    background-color: #F9A51A;
+    width: 120px;
+    height: 44px;
+    border: none;
+    border-radius: 5px;
+}
+
+.booking-btn link{
+    color: black;
+}
+
+.row-slider{
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.slider{
+    height: 99%;
+    width: 30%;
+    background-position: center;
+    background-size: cover;
+    border-radius: 10px;     
+    padding-top: 35%;
+    padding-left: 10px;
+    
+}
+
+.slider:hover{
+    border:1px solid #F9A51A;
+}
+
+.one{
+    background-image: url(../../image/Sajek.png);
+}
+
+.two{
+    background-image: url(../../image/Sreemongol.png);
+}
+
+.three{
+    background-image: url(../../image/sundorbon.png);
+}
+
+#Sundarban, #Sreemangal{
+    display: none;
+}
+
+.round-btn{
+    border: none;
+    border-radius: 50%;
+    background-color: white;
+    margin: 5px;
+    padding: 1%;
+}
+
+.arrow{color:black;
+    font-size:20px;
+    font-weight: 500;
+   
+}
+
+button{
+    outline: none;
+}
+
+Link{
+    color: black;
+}

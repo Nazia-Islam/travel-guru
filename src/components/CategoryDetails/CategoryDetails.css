@@ -1,0 +1,43 @@
+.destination-form{
+    float: right;
+    padding: 15px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.form-label{
+    color: #818181;
+}
+
+.form-control{
+    border: none;
+}
+
+.form-control::placeholder{
+    padding-left: 0px;
+    color: #000000;
+}
+
+.button{
+    margin-top: 20px;
+    background-color: rgb(249, 165, 26);
+    width: 100%;
+    border: none;
+}
+
+.button:hover{
+    background-color: white;
+    color: rgb(249, 165, 26);
+}
+
+.la{
+    margin-right: 50px;
+}
+
+.datepicker{
+    width: 100%;
+    background-image: url(../../icon/calender_icon.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: contain;
+}
