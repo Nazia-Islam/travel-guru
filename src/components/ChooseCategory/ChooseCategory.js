@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './ChooseCategory.css';
-import { Container, Row, Col, Pagination } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
+
 export const slideObj = [
-    {key: 'coxsBazar', description: 'Cox’s Bazar is a town on the southeast coast of Bangladesh. It’s known for its very long, sandy beachfront, stretching from Sea Beach in the north to Kolatoli Beach in the south.', name: "Cox's Bazar",},
-    {key: 'sreemangal', description: 'Sreemangal Tourism: Tripadvisor has 703 reviews of Sreemangal Hotels, Attractions, and Restaurants making it your best Sreemangal resource.', name: "Sreemangal",},
-    {key: 'sundarban', description: 'The Sundarbans is a mangrove area in the delta formed by the confluence of the Ganges, Brahmaputra and Meghna Rivers in the Bay of Bengal. It spans from the Hooghly River in India\'s state of West Bengal to the Baleswar River in Bangladesh.', name: "Sundarban",}
+    {key: "Cox's Bazar", description: 'Cox’s Bazar is a town on the southeast coast of Bangladesh. It’s known for its very long, sandy beachfront, stretching from Sea Beach in the north to Kolatoli Beach in the south.', name: "Cox's Bazar",},
+    {key: "Sreemangal", description: 'Sreemangal Tourism: Trip advisor has 703 reviews of Sreemangal Hotels, Attractions, and Restaurants making it your best Sreemangal resource.', name: "Sreemangal",},
+    {key: "Sundarban", description: 'The Sundarbans is a mangrove area in the delta formed by the confluence of the Ganges, Brahmaputra and Meghna Rivers in the Bay of Bengal. It spans from the Hooghly River in India\'s state of West Bengal to the Baleswar River in Bangladesh.', name: "Sundarban",}
 ];
 
 const ChooseCategory = () => {
-    
+
     const clickCox = () => {
         document.getElementById("Cox").style.display="block";
         document.getElementById("Sreemangal").style.display="none";
@@ -37,17 +38,17 @@ const ChooseCategory = () => {
                 <Col id="Cox" md={4}>
                     <h1>{slideObj[0].name}</h1>
                     <p>{slideObj[0].description}</p>
-                    <button className="booking-btn"><Link className="booking-link" to="/details">Booking</Link> <FontAwesomeIcon icon={faArrowRight} /></button>
+                    <Link className="booking-link1" to={`/`+slideObj[0].key}>Booking <FontAwesomeIcon icon={faArrowRight} /></Link>
                 </Col>
                 <Col id="Sreemangal" md={4}>
                     <h1>{slideObj[1].name}</h1>
                     <p>{slideObj[1].description}</p>
-                    <button className="booking-btn">Booking <FontAwesomeIcon icon={faArrowRight} /></button>
+                    <Link className="booking-link1" to={`/`+slideObj[1].key}>Booking <FontAwesomeIcon icon={faArrowRight} /></Link>
                 </Col>
                 <Col id="Sundarban" md={4}>
                     <h1>{slideObj[2].name}</h1>
                     <p>{slideObj[2].description}</p>
-                    <button className="booking-btn">Booking <FontAwesomeIcon icon={faArrowRight} /></button>
+                    <Link className="booking-link1" to={`/`+slideObj[2].key}>Booking <FontAwesomeIcon icon={faArrowRight} /></Link>
                 </Col>
 
                 <Col md={8} className="row-slider">

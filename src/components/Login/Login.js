@@ -1,9 +1,11 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useContext } from 'react';
 import './Login.css';
 import { Form, Container, Button } from 'react-bootstrap';
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from './firebase.config';
+import { UserContext } from '../../App';
+import { useHistory, useLocation } from 'react-router-dom';
 
 firebase.initializeApp(firebaseConfig);
 
@@ -14,8 +16,13 @@ const Login = () => {
         email: '',
         password: '',
         error:''
-      });
-      
+    });
+
+    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const history = useHistory();
+    const location = useLocation();
+    let { from } = location.state || { from: { pathname: "/" } };
+
     const googleProvider = new firebase.auth.GoogleAuthProvider();
     const handleGoogleSignin = () => {
         firebase.auth().signInWithPopup(googleProvider)
@@ -98,6 +105,7 @@ const Login = () => {
                 newUserInfo.error = '';
                 newUserInfo.success = true;
                 setUser(newUserInfo);
+               
             })
             .catch(function(error) {
                 const newUserInfo = {...user};
@@ -114,6 +122,8 @@ const Login = () => {
                 newUserInfo.error = '';
                 newUserInfo.success = true;
                 setUser(newUserInfo);
+                setLoggedInUser(newUserInfo);
+                history.replace(from);
             })
             .catch(function(error) {
                 const newUserInfo = {...user};

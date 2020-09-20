@@ -5,11 +5,24 @@ import './CategoryDetails.css';
 import '../ChooseCategory/ChooseCategory.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useParams, Link, useHistory } from 'react-router-dom';
+import fakeData from '../../fakedata';
 
-const CategoryDetails = (props) => {
-    console.log(props);
+const CategoryDetails = () => {
+    const {key} = useParams();
+    //console.log(key);
+    const [category, setCategory] = useState(fakeData);
+    const location = fakeData.find(k => k.key === key);
+    //console.log(location);
     const[selectedStartDate, setSelectedStartDate] = useState(null);
     const[selectedEndDate, setSelectedEndDate] = useState(null);
+
+    const history = useHistory();
+    console.log(history)
+    const checkAuthenticity = () => {
+        history.push(`/`+key+`/hotels`);
+        
+    };
 
     return (
         <div className="bg">
@@ -18,8 +31,8 @@ const CategoryDetails = (props) => {
                 <Container style={{ width: "100%"}} className="main-content">
                     <Row>
                         <Col md={5}>
-                            <h1>Cox's Bazar</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus saepe omnis voluptates iusto laborum in maiores consectetur harum doloribus odit necessitatibus, officiis sapiente ratione ipsa, vel tempora, eos illum nulla!</p>
+                            <h1>{location.name}</h1>
+                            <p>{location.description}</p>
                         </Col>
                         <Col md={7} style={{padding:"0px 40px"}}>
                             <div className="destination-form">
@@ -30,7 +43,7 @@ const CategoryDetails = (props) => {
                                     </Form.Group>
                                     <Form.Group>
                                         <Form.Label>Destination</Form.Label>
-                                        <Form.Control type="text" placeholder="Cox's Bazar" />
+                                        <Form.Control type="text" placeholder={location.name} />
                                     </Form.Group>
                                     <Row>
                                         <Col md={6}>
@@ -42,7 +55,9 @@ const CategoryDetails = (props) => {
                                             <DatePicker className="datepicker form-control" selected={selectedEndDate} onChange={date => setSelectedEndDate(date)} />
                                         </Col>
                                     </Row>
-                                    <Button className="button" type="submit">Start Booking</Button>
+                                    <Link to={`/`+key+`/hotels`}>
+                                        <Button onClick={checkAuthenticity} className="button" type="submit">Start Booking</Button>
+                                    </Link>
                                 </Form>
                             </div>   
                         </Col>

@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import fakedata from '../../fakedata';
 import { Container,Row, Col } from 'react-bootstrap';
 import './Hotel.css';
+import { useParams } from 'react-router-dom';
 
 const Hotel = () => {
+    const hotelLocation = useParams();
+    console.log(hotelLocation.key);
     const [hotels, setHotel] = useState(fakedata);
     console.log(hotels);
-    const filterHotels = hotels.filter(hotel => (hotel.location === "Cox's Bazar"));
+    const filterHotels = hotels.filter(hotel => (hotel.location === hotelLocation.key));
     console.log(filterHotels);
     return (
         <Container style={{paddingTop:"10%"}}>
@@ -27,7 +30,7 @@ const Hotel = () => {
                                     {hotel.cancelation}
                                 </p>
                                 <p>
-                                    <span className="star"><img src={require("../../icon/star_1_.png")} alt=""/>{hotel.rating}</span>
+                                    <span style={{marginRight: "15px"}} className="star"><img src={require("../../icon/star_1_.png")} alt=""/>{hotel.rating}</span>
                                     <span>{hotel.price}/night</span>
                                 </p>
                                 

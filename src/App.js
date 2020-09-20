@@ -7,36 +7,42 @@ import CategoryDetails from './components/CategoryDetails/CategoryDetails';
 import HeaderWhite from './components/HeaderWhite/HeaderWhite';
 import Login from './components/Login/Login';
 import Hotel from './components/Hotel/Hotel';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
-// export const CategoryContext = createContext();
+export const UserContext = createContext();
 
-function App() {
+function App(props) {
   
-  // const [category, setCategory] = useState({});
+  const [loggedInUser, setLoggedInUser] = useState({});
+
   return (
-    // <CategoryContext.Provider value={[]}>
+    <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
+      <h3>top: {loggedInUser.email}</h3>
       <Router>
         <Switch>
           <Route path="/home">
             <Home></Home>
           </Route>
-          <Route exact path="/"> 
-            <Home></Home>
-          </Route>
-          <Route path="/details">
-            <CategoryDetails/>
-          </Route>
           <Route path="/login"> 
             <HeaderWhite />
             <Login />
           </Route>
-          <Route path="/hotels"> 
+          <PrivateRoute path="/:key/hotels"> 
             <HeaderWhite/>
             <Hotel/>
+          </PrivateRoute>
+          <Route exact path="/"> 
+            <Home></Home>
+          </Route>
+          <Route path="/:key">
+            <CategoryDetails/>
+          </Route>
+          <Route path="*"> 
+            {/* <NotFound /> */}
           </Route>
         </Switch>
       </Router>
-    // </CategoryContext.Provider>
+    </UserContext.Provider>
   );
 }
 
