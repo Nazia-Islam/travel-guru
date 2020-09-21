@@ -52,7 +52,7 @@ const ChooseCategory = () => {
                 </Col>
 
                 <Col md={8} className="row-slider">
-                    <div onClick={clickCox} className="slider one"><h4>Cox's Bazar</h4></div>
+                    <div onClick={clickCox} className="slider active one"><h4>Cox's Bazar</h4></div>
                     <div onClick={clickSree} className="slider two"><h4>Sreemangal</h4></div>
                     <div onClick={clickSundar} className="slider three"><h4>Sundarban</h4></div>
                 </Col>

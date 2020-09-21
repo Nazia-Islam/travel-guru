@@ -49,8 +49,8 @@
     
 }
 
-.slider:hover{
-    border:1px solid #F9A51A;
+.active, .slider:hover{
+    border:2px solid #F9A51A;
 }
 
 .one{

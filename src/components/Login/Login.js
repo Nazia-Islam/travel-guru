@@ -29,12 +29,13 @@ const Login = () => {
         .then(res => {
             const {displayName, email} = res.user;
             console.log(displayName, email); 
-            const signedInUser = {
+            const newUserInfo = {
                 isSignedIn: true,
                 email:email,
                 name: displayName
             };    
-            setUser(signedInUser);
+            setUser(newUserInfo);
+            setLoggedInUser(newUserInfo);
         })
         .catch(error => {
             console.log(error);
@@ -46,8 +47,9 @@ const Login = () => {
     const handleFacebookSignin = () => {
         firebase.auth().signInWithPopup(facebookprovider)
         .then(function(result) {
-            var user = result.user;
-            console.log(user);
+            var newUserInfo = result.user;
+            console.log(newUserInfo);
+            setLoggedInUser(newUserInfo);
         })
         .catch(function(error) {
             // Handle Errors here.
@@ -79,23 +81,23 @@ const Login = () => {
         }
     };
 
-    const handleSignOut = () => {
-        firebase.auth().signOut()
-        .then(res => {
-          const signedOutUser = {
-            isSignedIn: false,
-            name: '',
-            email: '',
-            photo: '',
-            error: '',
-            success: false
-          }
-          setUser(signedOutUser);
-        })
-        .catch(err => {
-    
-        })
-    }
+    const varifyEmail = () => {
+        let user = firebase.auth().currentUser;
+        user.sendEmailVerification().then(function() {
+        // Email sent.
+        }).catch(function(error) {
+        // An error happened.
+        });
+    };
+
+    const resetPassword = (email) => {
+        var auth = firebase.auth();
+        auth.sendPasswordResetEmail(user.email).then(function() {
+        // Email sent.
+        }).catch(function(error) {
+        // An error happened.
+        });
+    };
 
     const handleSubmit = (e) =>{
         if(newUser && user.email && user.password){
@@ -105,7 +107,8 @@ const Login = () => {
                 newUserInfo.error = '';
                 newUserInfo.success = true;
                 setUser(newUserInfo);
-               
+                setLoggedInUser(newUserInfo);
+                varifyEmail();
             })
             .catch(function(error) {
                 const newUserInfo = {...user};
@@ -139,9 +142,6 @@ const Login = () => {
 
     return (
         <Container style={{ width: "100%"}}>
-            <button onClick={handleSignOut}>Sign out</button>
-            <p>email: {user.email}</p>
-            <p>password: {user.password}</p>
             <div className="bg-login">
                 {newUser?<h5>Create an Account</h5>:<h5>Login</h5>}
                 <Form onSubmit={handleSubmit}>
@@ -171,7 +171,7 @@ const Login = () => {
                         <Fragment>
                             <input type="checkbox" name="rememberPassword"/>
                             <label htmlFor="rememberPassword">Remember Me</label>
-                            <button className="forgot-password other-link">Forgot Password</button>
+                            <button onClick={resetPassword} className="forgot-password other-link">Reset Password</button>
                         </Fragment>
                     }
                     <Form.Control className="login" type="submit" value={newUser? "Create an account" : "Login"}/>
