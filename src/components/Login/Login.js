@@ -68,12 +68,18 @@ const Login = () => {
         let isFieldValid = true;
 
         if(e.target.name === 'email'){
-        isFieldValid = /\S+@\S+\.\S+/.test(e.target.value);
+            isFieldValid = /\S+@\S+\.\S+/.test(e.target.value);
+            if(!isFieldValid){
+                alert("enter valid email address");
+            }
         }
         if(e.target.name === 'password'){
             const isPasswordValid = e.target.value.length > 5 && e.target.value.length < 20;
             const passwordHasNumber = /\d{1}/.test(e.target.value);
             isFieldValid = isPasswordValid && passwordHasNumber;
+            if(!isFieldValid){
+                alert("password length should be more than 5 charecter and contains at least one number");
+            }
         }
         if(isFieldValid){
         const newUserInfo = {...user};
@@ -177,7 +183,7 @@ const Login = () => {
                     </Form.Group>
                     { newUser &&
                         <Form.Group>
-                            <Form.Control onBlur={handleBlur} id="confirmPassword" type="password" placeholder="Confirm Password" name="confirmPassword" required/>
+                            <Form.Control id="confirmPassword" type="password" placeholder="Confirm Password" name="confirmPassword" required/>
                         </Form.Group>
                     }
                     <hr/>
