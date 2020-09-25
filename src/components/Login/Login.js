@@ -52,7 +52,6 @@ const Login = () => {
         firebase.auth().signInWithPopup(facebookprovider)
         .then(function(result) {
             var newUserInfo = result.user;
-            console.log(newUserInfo);
             setLoggedInUser(newUserInfo);
             history.replace(from);
         })

@@ -8,6 +8,7 @@ import HeaderWhite from './components/HeaderWhite/HeaderWhite';
 import Login from './components/Login/Login';
 import Hotel from './components/Hotel/Hotel';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import PageNotFound from './components/PageNotFound/PageNotFound';
 
 export const UserContext = createContext();
 
@@ -36,8 +37,8 @@ function App(props) {
           <Route path="/:key">
             <CategoryDetails/>
           </Route>
-          <Route path="*"> 
-            {/* <NotFound /> */}
+          <Route path="/*"> 
+            <PageNotFound/>
           </Route>
         </Switch>
       </Router>

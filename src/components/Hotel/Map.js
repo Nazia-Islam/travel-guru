@@ -18,7 +18,6 @@ const Map = () => {
     const gMaplocation = mapLocation.find(loc => (loc.key === hotelLocation.key));
     const [hotels, setHotel] = useState(fakedata);
     const filterHotels = hotels.filter(hotel => (hotel.location === hotelLocation.key));
-    console.log(gMaplocation);
 
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey: 'AIzaSyCDnTMSM6H57Q-F_xeY3SY1zvDjT4p6iis',
