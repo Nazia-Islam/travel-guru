@@ -16,7 +16,7 @@ const HeaderWhite = () => {
             <Link className="items black" to="/home">Destination</Link> 
             <Link className="items black" to="/home">Blog</Link> 
             <Link className="items black" to="/login">Contact</Link>
-            <p className="items black" to="/home"><small>{loggedInUser.email}</small></p>
+            <p className="items black" to="/home"><small>{loggedInUser.name ? loggedInUser.name : loggedInUser.email}</small></p>
             <Button onClick={() => setLoggedInUser({})} style={{backgroundColor: "#F9A51A", width: "104px", height: "44px", border: "none"}}>{loggedInUser.email?"Logout":"Login"}</Button>
         </Nav> 
     );

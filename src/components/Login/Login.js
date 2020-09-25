@@ -16,8 +16,7 @@ const Login = () => {
         email: '',
         password: '',
         error:'',
-        success: '',
-        c_password:''
+        success: ''
     });
 
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
@@ -65,13 +64,6 @@ const Login = () => {
         });
     }
 
-    // const check = () => {
-    //     const pass = document.getElementById("password");
-    //     const confpass = document.getElementById("confirmPassword");
-    //     if(pass.value !== confpass.value){
-    //         alert("Password does not match");
-    //     }
-    // }
     const handleBlur = (e) => {
         let isFieldValid = true;
 
