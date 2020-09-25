@@ -15,7 +15,9 @@ const Login = () => {
         name: '',
         email: '',
         password: '',
-        error:''
+        error:'',
+        success: '',
+        c_password:''
     });
 
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
@@ -36,10 +38,13 @@ const Login = () => {
             };    
             setUser(newUserInfo);
             setLoggedInUser(newUserInfo);
+            history.replace(from);
         })
         .catch(error => {
-            console.log(error);
-            console.log(error.message);
+            const newUserInfo = {...user};
+            newUserInfo.error = error.message;
+            newUserInfo.success = false;
+            setUser(newUserInfo); 
         });
     };
 
@@ -50,19 +55,23 @@ const Login = () => {
             var newUserInfo = result.user;
             console.log(newUserInfo);
             setLoggedInUser(newUserInfo);
+            history.replace(from);
         })
         .catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
-            // ...
+            const newUserInfo = {...user};
+            newUserInfo.error = error.message;
+            newUserInfo.success = false;
+            setUser(newUserInfo); 
         });
     }
 
+    // const check = () => {
+    //     const pass = document.getElementById("password");
+    //     const confpass = document.getElementById("confirmPassword");
+    //     if(pass.value !== confpass.value){
+    //         alert("Password does not match");
+    //     }
+    // }
     const handleBlur = (e) => {
         let isFieldValid = true;
 
@@ -70,9 +79,9 @@ const Login = () => {
         isFieldValid = /\S+@\S+\.\S+/.test(e.target.value);
         }
         if(e.target.name === 'password'){
-        const isPasswordValid = e.target.value.length > 6;
-        const passwordHasNumber = /\d{1}/.test(e.target.value);
-        isFieldValid = isPasswordValid && passwordHasNumber;
+            const isPasswordValid = e.target.value.length > 5 && e.target.value.length < 20;
+            const passwordHasNumber = /\d{1}/.test(e.target.value);
+            isFieldValid = isPasswordValid && passwordHasNumber;
         }
         if(isFieldValid){
         const newUserInfo = {...user};
@@ -101,38 +110,49 @@ const Login = () => {
 
     const handleSubmit = (e) =>{
         if(newUser && user.email && user.password){
-            firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
-            .then(res => {
-                const newUserInfo = {...user};
-                newUserInfo.error = '';
-                newUserInfo.success = true;
-                setUser(newUserInfo);
-                setLoggedInUser(newUserInfo);
-                varifyEmail();
-            })
-            .catch(function(error) {
-                const newUserInfo = {...user};
-                newUserInfo.error = error.message;
-                newUserInfo.success = false;
-                setUser(newUserInfo);
-            });
+            const pass = document.getElementById("password");
+            const confpass = document.getElementById("confirmPassword");
+            if(pass.value === confpass.value){
+                firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+                .then(res => {
+                    const newUserInfo = {...user};
+                    newUserInfo.error = '';
+                    newUserInfo.success = true;
+                    setUser(newUserInfo);
+                    setLoggedInUser(newUserInfo);
+                    history.replace(from);
+                    varifyEmail();
+                })
+                .catch(error => {
+                    const newUserInfo = {...user};
+                    newUserInfo.error = error.message;
+                    newUserInfo.success = false;
+                    setUser(newUserInfo);
+                });
+            }
+            else{
+                alert("Password does not match");
+            }
+            
         }
-
+        
         if(!newUser && user.email && user.password){
             firebase.auth().signInWithEmailAndPassword(user.email, user.password)
             .then(res => {
+                console.log(res)
                 const newUserInfo = {...user};
                 newUserInfo.error = '';
                 newUserInfo.success = true;
                 setUser(newUserInfo);
                 setLoggedInUser(newUserInfo);
                 history.replace(from);
+                
             })
-            .catch(function(error) {
+            .catch(error => {
                 const newUserInfo = {...user};
                 newUserInfo.error = error.message;
                 newUserInfo.success = false;
-                setUser(newUserInfo);
+                setUser(newUserInfo); 
             });
         }
         e.preventDefault();
@@ -156,14 +176,16 @@ const Login = () => {
                         </Fragment>
                     }
                     <Form.Group>
-                        <Form.Control onBlur={handleBlur} name="email" type="email" placeholder="Username or Email" required/>
+                        <Form.Control onBlur={handleBlur} name="email" type="text" placeholder="Username or Email" required/>
+                        
                     </Form.Group>
                     <Form.Group>
-                        <Form.Control onBlur={handleBlur} name="password" type="password" placeholder="Password" required/>
+                        <Form.Control onBlur={handleBlur} id="password" name="password" type="password" placeholder="Password" required/>
+                        
                     </Form.Group>
                     { newUser &&
                         <Form.Group>
-                            <Form.Control type="password" placeholder="Confirm Password" id="myInput" required/>
+                            <Form.Control onBlur={handleBlur} id="confirmPassword" type="password" placeholder="Confirm Password" name="confirmPassword" required/>
                         </Form.Group>
                     }
                     <hr/>

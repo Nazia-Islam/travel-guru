@@ -12,7 +12,7 @@ const CategoryDetails = () => {
     const {key} = useParams();
     //console.log(key);
     const [category, setCategory] = useState(fakeData);
-    const location = fakeData.find(k => k.key === key);
+    const location = category.find(k => k.key === key);
     //console.log(location);
     const[selectedStartDate, setSelectedStartDate] = useState(null);
     const[selectedEndDate, setSelectedEndDate] = useState(null);

@@ -10,13 +10,13 @@ const Header = () => {
 
     return (
         <Nav style={{paddingLeft:"120px", flexWrap:"nowrap", paddingRight:"120px"}} className="top-nav">
-            <Link className="items logo" href="#"><img src={require("../../image/logo1.png")} alt="logo"/></Link>
+            <Link className="items logo" to="/home"><img src={require("../../image/logo1.png")} alt="logo"/></Link>
             <input className="search" type="text" placeholder="Search your Destination..." />
-            <Link className="items white" to="#">News</Link>
+            <Link className="items white" to="/home">News</Link>
             <Link className="items white" to="/home">Destination</Link> 
-            <Link className="items white" to="#">Blog</Link> 
-            <Link className="items white" to="#">Contact</Link>
-            <Link className="items white" href="#"><small>{loggedInUser.email}</small></Link>
+            <Link className="items white" to="/home">Blog</Link> 
+            <Link className="items white" to="/login">Contact</Link>
+            <p className="items white" href="#"><small>{loggedInUser.email}</small></p>
             <Button onClick={() => setLoggedInUser({})} style={{backgroundColor: "#F9A51A", width: "104px", height: "44px", border: "none"}}>{loggedInUser.email?"Logout":"Login"}</Button>
         </Nav>
     );
